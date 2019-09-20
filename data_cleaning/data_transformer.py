@@ -1,6 +1,7 @@
 import re
 import pandas as pd
 from data_cleaning.ingredients_mv_imputer import impute_ingredients_mv
+from data_cleaning.chemicals_mv_imputer import impute_abbrev_mv
 
 
 def transform_ingredients(ingredients):
@@ -40,3 +41,16 @@ def check_qty(s):
 def transform_abbrev(abbrev):
     abbrev.dropna(subset=["GmWt_Desc1", "GmWt_Desc2"], how="all", inplace=True)
     abbrev["Shrt_Desc"] = abbrev["Shrt_Desc"].apply(lambda x: x.lower())
+    impute_abbrev_mv(abbrev)
+    abbrev = abbrev[abbrev.apply(lambda x: pd.isna(x["GmWt_Desc1"]) or not pd.isna(x["GmWt_1"]), axis=1)]
+    transform_units(abbrev, "GmWt_1", "GmWt_Desc1")
+    transform_units(abbrev, "GmWt_2", "GmWt_Desc2")
+    return abbrev
+
+
+def transform_units(abbrev, unit_name, unit_desc):
+    unit_grams = abbrev[unit_name].apply(lambda x: x if pd.isna(x) else float(x.replace(",", ".")))
+    unit_amount = abbrev[unit_desc].apply(lambda x: x if isinstance(x, float) else float(x.split()[0].replace(",", ".")))
+
+    abbrev[unit_name] = unit_grams / unit_amount
+    abbrev[unit_desc] = abbrev[unit_desc].apply(lambda x: x if pd.isna(x) else " ".join(x.split()[1:]))

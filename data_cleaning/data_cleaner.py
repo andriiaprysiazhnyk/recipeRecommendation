@@ -5,7 +5,7 @@ import pandas as pd
 from io import StringIO
 from data_cleaning.data_transformer import transform_abbrev, transform_ingredients
 
-OUTPUT_DIRECTORY = "cleaned_data2"
+OUTPUT_DIRECTORY = "cleaned_data3"
 INPUT_DIRECTORY = "data"
 
 
@@ -18,7 +18,7 @@ def process_data(output_path):
 def read_data():
     input_path = os.path.join(os.getcwd(), "../", INPUT_DIRECTORY)
     abbrev = pd.read_csv(os.path.join(input_path, "abbrev.csv"), sep=";")
-    transform_abbrev(abbrev)
+    abbrev = transform_abbrev(abbrev)
 
     incorrect_rows = list(range(2295, 2300))  # manually identified incorrect instances in dataset
     recipes = pd.read_csv(os.path.join(input_path, "recipe.csv"), sep=";", skiprows=incorrect_rows)
