@@ -18,7 +18,8 @@ def transform_merged_data():
             merged_ingredients[column] = merged_ingredients[column] * merged_ingredients["grams"] / 100
 
     merged_ingredients.drop(columns="grams", axis=1, inplace=True)
-    merged_ingredients.to_csv(merged_file, sep=";", index=False)
+    merged_ingredients.to_csv(os.path.join(os.getcwd(), "../", "cleaned_data", "ingredient_abbrev_transformed.csv"),
+                              sep=";", index=False)
 
 
 def get_grams(ingredient):
@@ -35,7 +36,6 @@ def get_grams(ingredient):
             cur_distance = jellyfish.levenshtein_distance(i[1], j[1])
             if cur_distance < min_distance:
                 min_distance = cur_distance
-                # res = float(re.sub("[^0-9,]", "", str(i[0])).replace(",", ".")) * float(str(j[0]).replace(",", "."))
                 res = float(i[0].replace(",", ".")) * j[0]
     return res
 
