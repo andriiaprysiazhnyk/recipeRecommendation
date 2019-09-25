@@ -28,4 +28,4 @@ def one_way_embedding_similarity(s1, s2):
 def get_tokens(sentence):
     sentence = re.sub("[^a-zA-Z]", " ", sentence.lower())
     sentence = re.sub("\s+", " ", sentence)
-    return sentence.split()
+    return list(filter(lambda x: len(x) > 1, sentence.split()))

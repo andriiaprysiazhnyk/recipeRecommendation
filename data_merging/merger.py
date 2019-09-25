@@ -57,4 +57,4 @@ if __name__ == "__main__":
     merge(lambda x, y: 1 - jellyfish.levenshtein_distance(x, y) / max(len(x), len(y)), lambda x: max(x) >= 0.75,
           lambda s: s[max(s) - s < 0.01])
     merge(jellyfish.jaro_distance, lambda x: max(x) >= 0.8, lambda s: s[max(s) - s < 0.01])
-    merge(embedding_similarity, lambda x: max(x) >= 0.75, lambda s: s[max(s) - s < 0.01])
+    merge(embedding_similarity, lambda x: max(x) >= 0.725, lambda s: s[max(s) - s < 0.01])

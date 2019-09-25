@@ -7,7 +7,7 @@ def recommend_recipe(product_pref, chemical_plus, chemical_minus):
     scores = recipes.apply(
         lambda x: score_products(product_pref, x["ingredients"].split("|")) + score_chemicals(x, chemical_plus, chemical_minus, recipes),
         axis=1)
-    return recipes.loc[scores.nlargest(1).index]
+    return recipes.loc[scores.nlargest(1).index[0]]
 
 
 def score_products(product_pref, products):
