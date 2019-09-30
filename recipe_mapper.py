@@ -2,7 +2,7 @@ import pandas as pd
 
 
 def map_recipes():
-    ingredients = pd.read_csv("cleaned_data/ingredient_abbrev_transformed2.csv", sep=";")
+    ingredients = pd.read_csv("cleaned_data/ingredient_abbrev_transformed.csv", sep=";")
     recipes = pd.read_csv("cleaned_data/recipe.csv", sep=";")
     recipe_ingredient = pd.read_csv("cleaned_data/recipe_ingredient.csv", sep=";")
 

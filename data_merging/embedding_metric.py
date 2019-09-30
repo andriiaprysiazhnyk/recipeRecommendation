@@ -4,7 +4,7 @@ import jellyfish
 from gensim.models import KeyedVectors
 
 model = KeyedVectors.load_word2vec_format(
-    os.path.join(os.getcwd(), "../", "embedding", "GoogleNews-vectors-negative300.bin"), binary=True)
+    os.path.join(os.getcwd(), "embedding", "GoogleNews-vectors-negative300.bin"), binary=True)
 
 
 def embedding_similarity(s1, s2):
@@ -28,4 +28,4 @@ def one_way_embedding_similarity(s1, s2):
 def get_tokens(sentence):
     sentence = re.sub("[^a-zA-Z]", " ", sentence.lower())
     sentence = re.sub("\s+", " ", sentence)
-    return list(filter(lambda x: len(x) > 1, sentence.split()))
+    return sentence.split()
