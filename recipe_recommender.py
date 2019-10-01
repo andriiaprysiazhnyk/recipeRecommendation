@@ -41,7 +41,3 @@ def get_similar_recipes(recipe, recipes):
     similar_recipes_id = similar_recipes_dict[recipe["recipe_id"]]
 
     return recipes[recipes["recipe_id"].apply(lambda x: x in similar_recipes_id)]
-
-
-res2 = recommend_recipe({"carrot": True, "olive oil": True, "milk": True, "chili": False}, {"Calcium": (400, "+")})
-print(len(res2[1]))

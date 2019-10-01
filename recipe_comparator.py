@@ -56,4 +56,5 @@ def chemicals_similarity(recipe1, recipe2):
     return 1 - sum((recipe1 - recipe2) ** 2) / len(recipe1)
 
 
-generate_most_similar_recipes()
+if __name__ == "__main__":
+    generate_most_similar_recipes()
