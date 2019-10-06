@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 
 
@@ -13,6 +14,7 @@ def map_recipes():
     recipes["ingredients"] = recipes.apply(lambda x: get_names(get_ingredient_ids(x, recipe_ingredient), ingredients),
                                            axis=1)
 
+    recipes["recipe_id"] = np.arange(0, len(recipes))
     recipes.to_csv("cleaned_data/mapped_recipes.csv", sep=";", index=False)
 
 

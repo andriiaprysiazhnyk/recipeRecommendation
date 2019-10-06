@@ -1,16 +1,17 @@
 import jellyfish
 import pandas as pd
-import pickle
+
+from utility_based_recommendation.utility_based_recommender import recommend_recipes
 
 
-def recommend_recipe(product_pref, chemical_pref):
+def get_best_recipe(product_pref, chemical_pref):
     recipes = pd.read_csv("cleaned_data/mapped_recipes.csv", sep=";")
     scores = recipes.apply(
         lambda x: score_products(product_pref, x["ingredients"].split("|")) + score_chemicals(x, chemical_pref, recipes),
         axis=1)
 
     best_recipe = recipes.loc[scores.nlargest(1).index[0]]
-    return best_recipe, get_similar_recipes(best_recipe, recipes)
+    return best_recipe, recommend_recipes(best_recipe)
 
 
 def score_products(product_pref, products):
@@ -34,10 +35,3 @@ def score_chemicals(recipe, chemical_pref, recipes):
         res += cur_res if chemical_pref[element][1] == "+" else (1 - cur_res)
 
     return res
-
-
-def get_similar_recipes(recipe, recipes):
-    similar_recipes_dict = pickle.load(open("similar_recipes.pickle", "rb"))
-    similar_recipes_id = similar_recipes_dict[recipe["recipe_id"]]
-
-    return recipes[recipes["recipe_id"].apply(lambda x: x in similar_recipes_id)]
