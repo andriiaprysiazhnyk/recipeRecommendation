@@ -1,6 +1,5 @@
-import jellyfish
 import pandas as pd
-
+from recipe_comparator import ingredient_similarity
 from utility_based_recommendation.utility_based_recommender import recommend_recipes
 
 
@@ -18,7 +17,7 @@ def score_products(product_pref, products):
     res = 0
 
     for name in product_pref:
-        scores = list(map(lambda x: jellyfish.jaro_distance(name, x), products))
+        scores = list(map(lambda x: ingredient_similarity(name, x), products))
         res += max(scores) if product_pref[name] else min(scores)
 
     return res
