@@ -4,7 +4,7 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from gensim.models import KeyedVectors
 
-model = KeyedVectors.load_word2vec_format("../embedding/GoogleNews-vectors-negative300.bin", binary=True)
+model = KeyedVectors.load_word2vec_format("embedding/GoogleNews-vectors-negative300.bin", binary=True)
 
 
 def recipe_similarity(recipe1, recipe2):
