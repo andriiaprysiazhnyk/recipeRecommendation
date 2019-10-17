@@ -5,7 +5,7 @@ import pandas as pd
 from io import StringIO
 from data_cleaning.data_transformer import transform_abbrev, transform_ingredients
 
-OUTPUT_DIRECTORY = "cleaned_data3"
+OUTPUT_DIRECTORY = "cleaned_data"
 INPUT_DIRECTORY = "data"
 
 
@@ -50,3 +50,4 @@ if __name__ == "__main__":
 
     os.makedirs(clean_data_path)
     process_data(clean_data_path)
+

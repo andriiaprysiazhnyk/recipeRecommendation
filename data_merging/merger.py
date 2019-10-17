@@ -2,12 +2,14 @@ import os
 import jellyfish
 import numpy as np
 import pandas as pd
-from data_merging.embedding_metric import embedding_similarity
+from data_merging.sequence_metric import sequence_similarity
 
 
 def merge(name_metric, is_merged, get_best):
     ingredients = pd.read_csv("../cleaned_data/ingredient.csv", sep=";")
     abbrev = pd.read_csv("../cleaned_data/abbrev.csv", sep=";")
+
+    ingredients = ingredients.loc[:100]
 
     ingredients["ndb"] = ingredients.apply(lambda x: get_ndb(x, abbrev, name_metric, is_merged, get_best), axis=1)
     merged = ingredients.merge(abbrev, on="ndb", how="inner")
@@ -57,4 +59,4 @@ if __name__ == "__main__":
     merge(lambda x, y: 1 - jellyfish.levenshtein_distance(x, y) / max(len(x), len(y)), lambda x: max(x) >= 0.75,
           lambda s: s[max(s) - s < 0.01])
     merge(jellyfish.jaro_distance, lambda x: max(x) >= 0.8, lambda s: s[max(s) - s < 0.01])
-    merge(embedding_similarity, lambda x: max(x) >= 0.725, lambda s: s[max(s) - s < 0.01])
+    merge(sequence_similarity, lambda x: max(x) >= 0.725, lambda s: s[max(s) - s < 0.01])

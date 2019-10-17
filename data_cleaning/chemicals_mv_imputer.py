@@ -1,8 +1,7 @@
-import pandas as pd
 from sklearn.impute import SimpleImputer
 from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import Lasso
 
 
 def impute_abbrev_mv(abbrev):
@@ -15,7 +14,12 @@ def impute_abbrev_mv(abbrev):
     columns_for_linear_imputation, columns_for_mean_imputation = get_split_columns(chemicals)
 
     abbrev[columns_for_linear_imputation] = impute(chemicals[columns_for_linear_imputation],
-                                                   IterativeImputer(estimator=LinearRegression(), max_iter=20))
+                                                   IterativeImputer(estimator=Lasso(), max_iter=20))
+
+    for column in columns_for_linear_imputation:
+        top_bound, mean = abbrev[column].quantile(.95), abbrev[column].mean()
+        abbrev[column] = abbrev[column].apply(lambda x: 0 if x < 0 else (x if x < top_bound else mean))
+
     abbrev[columns_for_mean_imputation] = impute(chemicals[columns_for_mean_imputation], SimpleImputer(strategy="mean"))
 
 

@@ -17,8 +17,8 @@ def generate_fake_user_preferences():
     liked_products = ["broccoli", "carrot", "cabbage", "avocado", "egg", "almonds", "cucumber", "cauliflower", "beans",
                       "lentils", "yogurt", "extra virgin olive oil", "kale", "asparagus"]
     disliked_products = ["meat", "chicken", "beef", "pork", "sugar", "ham", "turkey", "sausage", "rice"]
-    chemical_pref = {"Cholestrl": (60, "-"), "Protein": (45, "-"), "Energ_Kcal": (1500, "-"), "Vit_K": (75, "+"),
-                     "Vit_C": (80, "+")}
+    chemical_pref = {"Cholestrl": (55, "-"), "Protein": (25, "-"), "Energ_Kcal": (500, "-"), "Vit_K": (40, "-"),
+                     "Vit_C": (40, "-")}
 
     scores = get_scores(recipes, liked_products, disliked_products, chemical_pref)
     scores = (scores - scores.min()) / (scores.max() - scores.min())

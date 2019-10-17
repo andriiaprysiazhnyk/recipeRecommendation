@@ -16,6 +16,7 @@ def transform_merged_data():
     for column in merged_ingredients.columns:
         if column not in non_chemical_columns:
             merged_ingredients[column] = merged_ingredients[column] * merged_ingredients["grams"] / 100
+            merged_ingredients[column] /= merged_ingredients["servings"]
 
     merged_ingredients.drop(columns="grams", axis=1, inplace=True)
     merged_ingredients.to_csv(os.path.join(os.getcwd(), "../", "cleaned_data", "ingredient_abbrev_transformed.csv"),
