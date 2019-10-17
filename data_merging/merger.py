@@ -9,8 +9,6 @@ def merge(name_metric, is_merged, get_best):
     ingredients = pd.read_csv("../cleaned_data/ingredient.csv", sep=";")
     abbrev = pd.read_csv("../cleaned_data/abbrev.csv", sep=";")
 
-    ingredients = ingredients.loc[:100]
-
     ingredients["ndb"] = ingredients.apply(lambda x: get_ndb(x, abbrev, name_metric, is_merged, get_best), axis=1)
     merged = ingredients.merge(abbrev, on="ndb", how="inner")
     print(len(merged))
