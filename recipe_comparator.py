@@ -6,7 +6,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from gensim.models import KeyedVectors
 
 path_to_model = ("" if os.getcwd().endswith(
-    "recipeRecommendation2") else "../") + "embedding/GoogleNews-vectors-negative300.bin"
+    "recipeRecommendation") else "../") + "embedding/GoogleNews-vectors-negative300.bin"
 model = KeyedVectors.load_word2vec_format(path_to_model, binary=True)
 
 
