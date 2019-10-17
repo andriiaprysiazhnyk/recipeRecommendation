@@ -18,7 +18,7 @@ def score_products(product_pref, products):
 
     for name in product_pref:
         scores = list(map(lambda x: ingredient_similarity(name, x), products))
-        res += max(scores) if product_pref[name] else min(scores)
+        res += max(scores) if product_pref[name] else (1 - max(scores))
 
     return res
 

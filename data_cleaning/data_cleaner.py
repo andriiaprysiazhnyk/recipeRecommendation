@@ -50,4 +50,3 @@ if __name__ == "__main__":
 
     os.makedirs(clean_data_path)
     process_data(clean_data_path)
-

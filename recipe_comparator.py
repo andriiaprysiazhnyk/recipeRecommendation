@@ -1,10 +1,13 @@
+import os
 import jellyfish
 import string
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from gensim.models import KeyedVectors
 
-model = KeyedVectors.load_word2vec_format("embedding/GoogleNews-vectors-negative300.bin", binary=True)
+path_to_model = ("" if os.getcwd().endswith(
+    "recipeRecommendation2") else "../") + "embedding/GoogleNews-vectors-negative300.bin"
+model = KeyedVectors.load_word2vec_format(path_to_model, binary=True)
 
 
 def recipe_similarity(recipe1, recipe2):
@@ -55,7 +58,7 @@ def seq_similarity(seq1, seq2, similarity_func):
 
 
 def chemicals_similarity(recipe1, recipe2):
-    non_chemical_columns = ["recipe_id", "title", "author", "url", "tags", "servings", "ingredients"]
+    non_chemical_columns = ["recipe_id", "title", "author", "url", "tags", "ingredients"]
     recipe1 = recipe1.drop(labels=non_chemical_columns)
     recipe2 = recipe2.drop(labels=non_chemical_columns)
 
@@ -63,7 +66,7 @@ def chemicals_similarity(recipe1, recipe2):
 
 
 def normalize_recipes(recipes):
-    non_chemical_columns = ["recipe_id", "title", "author", "url", "tags", "servings", "ingredients"]
+    non_chemical_columns = ["recipe_id", "title", "author", "url", "tags", "ingredients"]
     chemicals_columns = list(recipes.columns)
     for non_chemical in non_chemical_columns:
         chemicals_columns.remove(non_chemical)

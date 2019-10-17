@@ -4,7 +4,7 @@ import pandas as pd
 def recommend_recipes(recipe, user_id):
     recipes = pd.read_csv("cleaned_data/mapped_recipes.csv", sep=";")
     preferences = pd.read_csv("preferences_generation/preferences.csv")[str(user_id)]
-    similarities = pd.read_csv("similarity_based_recommendation/recipes_distances.csv")
+    similarities = pd.read_csv("similarity_based_recommendation/recipes_similarities.csv")
 
     scored = preferences[preferences.notna()]
     not_scored = preferences[preferences.isna()]

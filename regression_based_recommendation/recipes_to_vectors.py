@@ -24,7 +24,7 @@ def tfidf_vectorizing(chemicals):
 
 
 def mds_vectorizing():
-    distances = 1 - pd.read_csv("../similarity_based_recommendation/recipes_distances.csv")
+    distances = 1 - pd.read_csv("../similarity_based_recommendation/recipes_similarities.csv")
     mds = MDS(n_components=100, n_init=10)
     encodings = pd.DataFrame(mds.fit_transform(distances))
     encodings.to_csv("mds_encodings.csv", index=False)
@@ -47,7 +47,7 @@ def word2vec_based_vectorizing(chemicals):
 
 def get_chemicals():
     recipes = pd.read_csv("../cleaned_data/mapped_recipes.csv", sep=";")
-    non_chemical_columns = ["recipe_id", "title", "author", "url", "tags", "servings", "ingredients"]
+    non_chemical_columns = ["recipe_id", "title", "author", "url", "tags", "ingredients"]
     chemicals_columns = list(recipes.columns)
     for non_chemical in non_chemical_columns:
         chemicals_columns.remove(non_chemical)

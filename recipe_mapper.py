@@ -14,6 +14,12 @@ def map_recipes():
     recipes["ingredients"] = recipes.apply(lambda x: get_names(get_ingredient_ids(x, recipe_ingredient), ingredients),
                                            axis=1)
 
+    non_chemical_columns = ["recipe_id", "title", "author", "url", "tags", "servings", "ingredients"]
+    for column in recipes.columns:
+        if column not in non_chemical_columns:
+            recipes[column] /= recipes["servings"]
+
+    recipes.drop("servings", axis=1, inplace=True)
     recipes["recipe_id"] = np.arange(0, len(recipes))
     recipes.to_csv("cleaned_data/mapped_recipes.csv", sep=";", index=False)
 
